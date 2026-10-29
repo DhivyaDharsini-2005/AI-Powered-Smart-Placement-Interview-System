@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment variables
+.env
+*/.env
+
+# Build output
+dist/
+*/dist/
+build/
+
+# Uploaded resumes, avatars, and generated reports (user data - don't commit)
+server/uploads/*
+!server/uploads/.gitkeep
+!server/uploads/avatars
+server/uploads/avatars/*
+!server/uploads/avatars/.gitkeep
+server/reports/*
+!server/reports/.gitkeep
+
+# Python (ml_service)
+__pycache__/
+*.pyc
+ml_service/venv/
+ml_service/.venv/
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+# Root-level Python virtual environment
+.venv/
+venv/
+env/
+
+# Nested Python environments
+*/.venv/
+*/venv/
+*/env/
+
+# Secrets
+.env.*
+!.env.example
+
+# Python model/cache files
+.pytest_cache/
+.mypy_cache/
+# Large trained model - keep locally, do not upload
+ml_service/models/placement_predictor_model.pkl

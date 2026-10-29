@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  @apply bg-surface text-white;
+}
+
+body.light-mode {
+  @apply bg-light-bg text-slate-800;
+}
+
+/* Custom scrollbar */
+.scroll-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll-thin::-webkit-scrollbar-thumb { background-color: #6366f1; border-radius: 999px; }
+.scroll-thin::-webkit-scrollbar-track { background-color: transparent; }
+
+/* --- Card system --- */
+.panel {
+  @apply rounded-2xl border bg-surface-panel border-surface-border;
+}
+.light-mode .panel {
+  @apply bg-light-panel border-light-border;
+}
+/* Backward-compatible alias - older components still use .card */
+.card { @apply panel; }
+
+.panel-hover {
+  @apply transition-colors duration-200 hover:border-brand/40;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-glow transition-colors duration-150 hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50;
+}
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-surface-border bg-surface-raised px-4 py-2.5 text-sm font-medium text-white/90 transition-colors duration-150 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.light-mode .btn-secondary {
+  border-color: rgba(15, 23, 42, 0.1);
+  background-color: #ffffff;
+  color: #334155;
+}
+.light-mode .btn-secondary:hover { background-color: #f8fafc; }
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-white/60 transition-colors duration-150 hover:bg-white/10 hover:text-white;
+}
+
+/* --- Inputs --- */
+.input-field {
+  @apply w-full rounded-xl border border-surface-border bg-black/30 px-3.5 py-2.5 text-sm text-white outline-none transition-colors focus:border-brand;
+}
+.light-mode .input-field {
+  border-color: rgba(15, 23, 42, 0.12);
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+/* --- Badges / pills --- */
+.badge {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold;
+}
+.badge-success { @apply badge bg-success-soft text-success; }
+.badge-warning { @apply badge bg-warning-soft text-warning; }
+.badge-info { @apply badge bg-info-soft text-info; }
+.badge-danger { @apply badge bg-danger-soft text-danger; }
+.badge-brand { @apply badge bg-brand/15 text-brand-light; }
+
+/* --- Skill chips --- */
+.chip {
+  @apply rounded-lg px-3 py-1.5 text-xs font-medium;
+}
+
+/* --- Stat sparkline track (used in dashboard cards) --- */
+.sparkline-track {
+  @apply h-8 w-full overflow-hidden rounded-md;
+}
+
+/* ======================================================================
+   LIGHT MODE OVERRIDES
+   The whole app is built dark-first with literal Tailwind utilities like
+   text-white/60, bg-white/10, border-white/20, bg-surface, etc. Rather than
+   touching every component's JSX (which risks breaking the dark-mode look
+   everywhere, including pages we were told not to redesign), this block
+   re-maps those exact utility classes to readable light-theme equivalents
+   whenever the <body> has the .light-mode class. Dark mode is completely
+   unaffected - these rules only ever apply inside .light-mode.
+   ====================================================================== */
+
+.light-mode { color-scheme: light; }
+
+/* Page-level surfaces */
+.light-mode .bg-surface { background-color: #f5f6fb; }
+.light-mode .bg-surface-panel { background-color: #ffffff; }
+.light-mode .bg-surface-raised { background-color: #f1f2f8; }
+.light-mode .bg-surface-border { background-color: rgba(15, 23, 42, 0.08); }
+
+/* Text colors */
+.light-mode .text-white { color: #1e293b; }
+.light-mode .text-white\/90 { color: rgba(30, 41, 59, 0.9); }
+.light-mode .text-white\/80 { color: rgba(30, 41, 59, 0.82); }
+.light-mode .text-white\/70 { color: rgba(30, 41, 59, 0.75); }
+.light-mode .text-white\/60 { color: rgba(30, 41, 59, 0.68); }
+.light-mode .text-white\/50 { color: rgba(30, 41, 59, 0.58); }
+.light-mode .text-white\/40 { color: rgba(30, 41, 59, 0.48); }
+.light-mode .text-white\/30 { color: rgba(30, 41, 59, 0.38); }
+.light-mode .text-white\/20 { color: rgba(30, 41, 59, 0.28); }
+.light-mode .hover\:text-white:hover { color: #1e293b; }
+
+/* Subtle backgrounds (card hovers, highlighted rows, input fills) */
+.light-mode .bg-white { background-color: #ffffff; }
+.light-mode .bg-white\/5 { background-color: rgba(15, 23, 42, 0.035); }
+.light-mode .bg-white\/10 { background-color: rgba(15, 23, 42, 0.055); }
+.light-mode .bg-white\/15 { background-color: rgba(15, 23, 42, 0.07); }
+.light-mode .bg-white\/20 { background-color: rgba(15, 23, 42, 0.09); }
+.light-mode .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.035); }
+.light-mode .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.055); }
+.light-mode .hover\:bg-white\/20:hover { background-color: rgba(15, 23, 42, 0.09); }
+
+/* Borders */
+.light-mode .border-white\/10 { border-color: rgba(15, 23, 42, 0.1); }
+.light-mode .border-white\/20 { border-color: rgba(15, 23, 42, 0.14); }
+.light-mode .border-white\/30 { border-color: rgba(15, 23, 42, 0.2); }
+.light-mode .hover\:border-white\/30:hover { border-color: rgba(15, 23, 42, 0.2); }
+.light-mode .border-surface-border { border-color: rgba(15, 23, 42, 0.1); }
+.light-mode .divide-surface-border > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+/* Inputs, scrollbars, video backgrounds stay legible */
+.light-mode .input-field { background-color: #ffffff; color: #1e293b; }
+.light-mode .input-field::placeholder { color: rgba(30, 41, 59, 0.4); }
+.light-mode select.input-field option { color: #1e293b; background-color: #ffffff; }
+
+/* Buttons that relied on dark backgrounds (full .btn-secondary override is defined earlier in this file) */
+.light-mode .btn-ghost { color: rgba(30, 41, 59, 0.65); }
+.light-mode .btn-ghost:hover { background-color: rgba(15, 23, 42, 0.06); color: #1e293b; }
+
+/* Dropdowns / select option lists rendered with bg-surface as a class */
+.light-mode option.bg-surface { background-color: #ffffff; color: #1e293b; }
