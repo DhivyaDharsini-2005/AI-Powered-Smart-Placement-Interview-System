@@ -1,10 +1,13 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// Proxies /api requests to the backend during development so the
-// frontend can just call relative paths like "/api/auth/login".
 export default defineConfig({
   plugins: [react()],
+
+  // GitHub Pages repository path
+  base: "/AI-Powered-Smart-Placement-Interview-System/",
+
   server: {
     port: 5173,
     proxy: {
