@@ -1,27 +1,45 @@
 import axios from "axios";
 
+// Backend API URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+// Create Axios instance
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: `${API_BASE_URL}/api`,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Attach the JWT token (if present) to every outgoing request
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Attach JWT token (if available)
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+
+    if (token && token !== "undefined" && token !== "null") {
+      config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      delete config.headers.Authorization;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
-// If the token is invalid/expired, clear local storage so the user
-// is taken back to a logged-out state instead of seeing endless errors.
+// Handle API responses and errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     }
+
     return Promise.reject(error);
   }
 );
